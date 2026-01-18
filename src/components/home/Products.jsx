@@ -2,7 +2,7 @@ import ProductCard from "@/components/cards/ProductCard";
 import { getProducts } from "@/actions/server/products";
 
 const Products = async () => {
-    const products = (await getProducts()) || [];
+    const products = await getProducts();
 
     return (
         <div>

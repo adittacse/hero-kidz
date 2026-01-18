@@ -4,6 +4,7 @@ import CartButton from "@/components/buttons/CartButton";
 import Link from "next/dist/client/link";
 
 const ProductCard = ({ product }) => {
+    // console.log(product);
     const { _id, title, image, price, ratings, reviews, sold } = product;
 
     return (
@@ -32,7 +33,7 @@ const ProductCard = ({ product }) => {
                     <span className="text-sm text-gray-500">{sold} sold</span>
                 </div>
 
-                {/*<CartButton product={{ ...product, id: _id.toString() }} />*/}
+                <CartButton product={{ ...product, id: _id.toString() }} />
 
                 <Link href={`/products/${_id}`} className="btn btn-primary btn-outline mt-4 w-full">
                     View Details

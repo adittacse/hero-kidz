@@ -1,4 +1,5 @@
 "use client";
+
 import { handleCart } from "@/actions/server/cart";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
@@ -12,11 +13,12 @@ const CartButton = ({ product }) => {
     const path = usePathname();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    const islogin = session?.status == "authenticated";
+    const isLogin = session?.status === "authenticated";
 
-    const handleAdd2Cart = async () => {
+    const handleAddToCart = async () => {
         setIsLoading(true);
-        if (islogin) {
+
+        if (isLogin) {
             const result = await handleCart(product._id);
             if (result.success) {
                 Swal.fire({
@@ -29,11 +31,13 @@ const CartButton = ({ product }) => {
                     cancelButtonText: "আরো কিনতে চাই",
                     confirmButtonText: "চেকআউট করুন",
                 }).then((res) => {
-                    if (res.isConfirmed) router.push("/cart");
+                    if (res.isConfirmed) {
+                        router.push("/cart");
+                    }
                 });
                 // Swal.fire("Added to Cart", product?.title, "success");
             } else {
-                Swal.fire("Opps", "Something Wrong Happen", "error");
+                await Swal.fire("Opps", "Something Wrong Happen", "error");
             }
             setIsLoading(false);
         } else {
@@ -45,12 +49,11 @@ const CartButton = ({ product }) => {
     return (
         <div>
             <button
-                disabled={session.status == "loading" || isLoading}
-                onClick={handleAdd2Cart}
+                disabled={session.status === "loading" || isLoading}
+                onClick={handleAddToCart}
                 className="btn btn-primary w-full flex gap-2"
             >
-                <FaCartPlus />
-                Add to Cart
+                <FaCartPlus /> Add to Cart
             </button>
         </div>
     );

@@ -102,7 +102,7 @@ const ProductDetails = async ({ params }) => {
                 </div>
 
                 {/* Actions */}
-                {/*<CartButton product={{...product, _id: product._id.toString()}} />*/}
+                <CartButton product={{...product, _id: product._id.toString()}} />
 
                 {/* Key Features */}
                 <div className="mt-6">

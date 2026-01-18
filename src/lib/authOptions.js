@@ -2,6 +2,7 @@ import { loginUser } from "@/actions/server/auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { collections, dbConnect } from "./dbConnect";
+
 export const authOptions = {
     providers: [
         CredentialsProvider({
@@ -12,8 +13,6 @@ export const authOptions = {
                 // password: { label: "Password", type: "password" },
             },
             async authorize(credentials, req) {
-                console.log(credentials);
-
                 const user = await loginUser({
                     email: credentials.email,
                     password: credentials.password,
@@ -31,8 +30,6 @@ export const authOptions = {
     ],
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
-            console.log({ user, account, profile, email, credentials });
-
             const isExist = await dbConnect(collections.USERS).findOne({
                 email: user.email,
                 // provider: account?.provider,
@@ -64,9 +61,8 @@ export const authOptions = {
             return session;
         },
         async jwt({ token, user, account, profile, isNewUser }) {
-            console.log("account data in token", token);
             if (user) {
-                if (account.provider == "google") {
+                if (account.provider === "google") {
                     const dbUser = await dbConnect(collections.USERS).findOne({
                         email: user.email,
                     });

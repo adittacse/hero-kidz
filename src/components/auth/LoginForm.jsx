@@ -16,8 +16,9 @@ const LoginForm = () => {
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
-        setLoading(true);
         e.preventDefault();
+        setLoading(true);
+
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;

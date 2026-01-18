@@ -19,7 +19,7 @@ export async function generateMetadata({params}) {
                 "Fun and educational learning toy for kids. Safe, colorful, and engaging.",
             images: [
                 {
-                    url: product.image || "https://i.ibb.co.com/Ld7J2ZYq/image.png",
+                    url: product.image || "https://i.ibb.co.com/fzZJP3r2/image.png",
                     width: 1200,
                     height: 630,
                     alt: product.title,
@@ -31,7 +31,7 @@ export async function generateMetadata({params}) {
             card: "summary_large_image",
             title: product.title,
             description: "Fun and educational learning toy for kids.",
-            images: [product.image || "https://i.ibb.co.com/Ld7J2ZYq/image.png"],
+            images: [product.image || "https://i.ibb.co.com/fzZJP3r2/image.png"],
         },
     };
 }

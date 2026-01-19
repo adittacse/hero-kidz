@@ -4,7 +4,6 @@ import CartButton from "@/components/buttons/CartButton";
 import Link from "next/dist/client/link";
 
 const ProductCard = ({ product }) => {
-    // console.log(product);
     const { _id, title, image, price, ratings, reviews, sold } = product;
 
     return (

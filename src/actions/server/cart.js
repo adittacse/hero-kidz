@@ -12,16 +12,19 @@ const cartCollection = dbConnect(collections.CART);
 
 export const handleCart = async (productId) => {
     const { user } = (await getServerSession(authOptions)) || {};
-    if (!user) return { success: false };
+    if (!user) {
+        return { success: false };
+    }
 
     //getCartItem->user.email && productId
-    const query = { email: user?.email, productId: new ObjectId(productId) };
+    const query = {
+        email: user?.email,
+        productId: new ObjectId(productId)
+    };
 
     const isAdded = await cartCollection.findOne(query);
-
     if (isAdded) {
         //if Exist:Update Cart
-
         const updatedData = {
             $inc: {
                 quantity: 1,
@@ -34,6 +37,7 @@ export const handleCart = async (productId) => {
         const product = await dbConnect(collections.PRODUCTS).findOne({
             _id: new ObjectId(productId),
         });
+
         //Not Exist:insert Cart
         const newData = {
             productId: product?._id,
@@ -52,25 +56,31 @@ export const handleCart = async (productId) => {
 
 export const getCart = cache(async () => {
     const { user } = (await getServerSession(authOptions)) || {};
-    if (!user) return [];
-    console.log("get cart called");
+    if (!user) {
+        return [];
+    }
 
     const query = { email: user?.email };
 
-    const result = await cartCollection.find(query).toArray();
-
+    const cursor = cartCollection.find(query);
+    const result = await cursor.toArray();
     return result;
 });
 
 export const deleteItemsFromCart = async (id) => {
     const { user } = (await getServerSession(authOptions)) || {};
-    if (!user) return { success: false };
-
-    if (id?.length != 24) {
+    if (!user) {
         return { success: false };
     }
 
-    const query = { _id: new ObjectId(id), email: user?.email };
+    if (id?.length !== 24) {
+        return { success: false };
+    }
+
+    const query = {
+        _id: new ObjectId(id),
+        email: user?.email
+    };
 
     const result = await cartCollection.deleteOne(query);
 

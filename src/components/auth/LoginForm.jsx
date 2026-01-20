@@ -32,7 +32,7 @@ const LoginForm = () => {
 
         if (!result.ok) {
             await Swal.fire(
-                "error",
+                "Error",
                 "Email password not Matched . Try Google Login / Register",
                 "error"
             );

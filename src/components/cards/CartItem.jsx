@@ -54,7 +54,7 @@ const CartItem = ({ item, removeItem, updateQuantity }) => {
         const result = await increaseItemDb(_id, quantity);
 
         if (result.success) {
-            await Swal.fire("success", "এই প্রোডাক্ট টি আরেকবার  যুক্ত করা হলো", "success");
+            await Swal.fire("Success", "এই প্রোডাক্ট টি আরেকবার যুক্ত করা হলো", "success");
             updateQuantity(_id, quantity + 1);
         }
         setLoading(false);
@@ -64,7 +64,7 @@ const CartItem = ({ item, removeItem, updateQuantity }) => {
         setLoading(true);
         const result = await decreaseItemDb(_id, quantity);
         if (result.success) {
-            await Swal.fire("success", "এই প্রোডাক্ট টির qauntity   কমানো হলো", "success");
+            await Swal.fire("Success", "এই প্রোডাক্টটির qauntity কমানো হলো", "success");
             updateQuantity(_id, quantity - 1);
         }
         setLoading(false);

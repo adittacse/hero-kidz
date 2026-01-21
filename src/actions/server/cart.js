@@ -93,7 +93,9 @@ export const deleteItemsFromCart = async (id) => {
 
 export const increaseItemDb = async (id, quantity) => {
     const { user } = (await getServerSession(authOptions)) || {};
-    if (!user) return { success: false };
+    if (!user) {
+        return { success: false };
+    }
 
     if (quantity > 10) {
         return { success: false, message: "You cant buy 10 products at a time" };
@@ -108,7 +110,6 @@ export const increaseItemDb = async (id, quantity) => {
     };
 
     const result = await cartCollection.updateOne(query, updatedData);
-
     return { success: Boolean(result.modifiedCount) };
 };
 

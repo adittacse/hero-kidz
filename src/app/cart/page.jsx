@@ -1,11 +1,16 @@
 import { getCart } from "@/actions/server/cart";
+import Cart from "@/components/home/Cart";
 import { fontBangla } from "@/app/layout";
 import Link from "next/dist/client/link";
 import { TbHorseToy } from "react-icons/tb";
-import CartItem from "@/components/cards/CartItem";
 
 const CartPage = async () => {
     const cartItems = await getCart();
+
+    const formatedItems = cartItems.map((item) => ({
+        ...item,
+        _id: item._id.toString()
+    }));
 
     return (
         <div>
@@ -15,7 +20,7 @@ const CartPage = async () => {
 
             <div>
                 {
-                    cartItems.length === 0 && (
+                    cartItems.length === 0 ? (
                         <div className="text-center py-20 space-y-5">
                             <h2 className={`${fontBangla.className} text-4xl font-bold`}>
                                 আপনি কার্টে কোন প্রোডাক্ট এড করেন নি
@@ -24,17 +29,8 @@ const CartPage = async () => {
                                 <TbHorseToy /> পন্য দেখুন
                             </Link>
                         </div>
-                    )
+                    ) : <Cart cartItems={formatedItems} />
                 }
-            </div>
-
-            <div className="flex">
-                <div className="flex-3">
-                    {
-                        cartItems.map(item => <CartItem key={item._id.toString()} item={item} />)
-                    }
-                </div>
-                <div className="flex-1"></div>
             </div>
         </div>
     );

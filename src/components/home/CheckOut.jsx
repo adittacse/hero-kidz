@@ -37,6 +37,7 @@ const CheckOut = ({ cartItems = [] }) => {
         };
 
         const result = await createOrder(payload);
+        console.log(result);
         if (result.success) {
             await Swal.fire(
                 "অর্ডার সম্পন্ন হলো",
@@ -142,7 +143,7 @@ const CheckOut = ({ cartItems = [] }) => {
                     </div>
 
                     <button
-                        disabled={cartItems.length == 0 || loading}
+                        disabled={cartItems.length === 0 || loading}
                         type="submit"
                         className="btn btn-primary w-full mt-4"
                     >

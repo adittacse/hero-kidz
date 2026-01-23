@@ -38,7 +38,7 @@ export const handleCart = async (productId) => {
             _id: new ObjectId(productId),
         });
 
-        //Not Exist:insert Cart
+        // Not Exist:insert Cart
         const newData = {
             productId: product?._id,
             email: user?.email,
@@ -101,7 +101,10 @@ export const increaseItemDb = async (id, quantity) => {
         return { success: false, message: "You cant buy 10 products at a time" };
     }
 
-    const query = { _id: new ObjectId(id), email: user?.email };
+    const query = {
+        _id: new ObjectId(id),
+        email: user?.email
+    };
 
     const updatedData = {
         $inc: {
@@ -121,7 +124,10 @@ export const decreaseItemDb = async (id, quantity) => {
         return { success: false, message: "quantity cant be empty" };
     }
 
-    const query = { _id: new ObjectId(id), email: user?.email };
+    const query = {
+        _id: new ObjectId(id),
+        email: user?.email
+    };
 
     const updatedData = {
         $inc: {
